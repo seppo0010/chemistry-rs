@@ -1,18 +1,18 @@
 #![allow(non_upper_case_globals, dead_code)]
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum Identifier {
     OneLetter(char),
     TwoLetters(char, char),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 struct Atom {
     identifier: Identifier,
     atomic_number: u16,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum Group {
     Group1,
     Group2,
@@ -35,7 +35,7 @@ enum Group {
     Ungrouped,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 struct Period {
     mod_groups: &'static [Group],
 }
@@ -103,4 +103,10 @@ fn main() {
     println!("{:?}", vec![H, He, O]);
     println!("{:?}", vec![H.group(), He.group(), O.group()]);
     println!("{:?}", vec![H.period(), He.period(), O.period()]);
+}
+
+#[test]
+fn test_oxigen_period_group() {
+    assert_eq!(O.group(), &Group::Group16);
+    assert_eq!(O.period(), &Period2);
 }
